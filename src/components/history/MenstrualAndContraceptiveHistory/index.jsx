@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography,} from '@mui/material';
+import {Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography,} from '@mui/material';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -15,13 +15,25 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
             whyNeverUsed: '',
         },
         validationSchema: Yup.object({
-
             lengthOfMenses: Yup.number().required('Required').min(1, 'Must be at least 1 day').max(14, 'Must be at most 14 days'),
-
             amount: Yup.string().required('Required'),
-            familyPlanningMethod: Yup.string(),
-            whenAndWhyDiscontinued: Yup.string(),
-            whyNeverUsed: Yup.string(),
+            familyPlanningMethod: Yup.string().required('Please select an option'),
+            familyPlanningMethodUsed: Yup.string().when('familyPlanningMethod', {
+                is: 'yes',
+                then: (schema) => schema.required('Required'),
+            }),
+            when: Yup.string().when('familyPlanningMethod', {
+                is: 'yes',
+                then: (schema) => schema.required('Required'),
+            }),
+            whyDiscontinued: Yup.string().when('familyPlanningMethod', {
+                is: 'yes',
+                then: (schema) => schema.required('Required'),
+            }),
+            whyNeverUsed: Yup.string().when('familyPlanningMethod', {
+                is: 'no',
+                then: (schema) => schema.required('Required'),
+            }),
         }),
         onSubmit: (values) => {
             onSubmit?.(values);
@@ -35,6 +47,8 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
         handleChange,
         handleBlur,
         handleSubmit,
+        isValid,
+        dirty
     } = formik;
 
     return (
@@ -159,9 +173,6 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
                 }
 
 
-                {/*<Button type="submit" variant="contained" color="primary">*/}
-                {/*    Submit Section*/}
-                {/*</Button>*/}
             </Box>
 
         </form>
