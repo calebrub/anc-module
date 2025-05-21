@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography,} from '@mui/material';
+import {Box, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography,} from '@mui/material';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -47,8 +47,6 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
         handleChange,
         handleBlur,
         handleSubmit,
-        isValid,
-        dirty
     } = formik;
 
     return (

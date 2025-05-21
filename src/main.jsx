@@ -8,8 +8,11 @@ import {HashRouter} from 'react-router-dom';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#7ccfd3',
+            main: '#68c7cb',
         },
+    },
+    typography: {
+        fontFamily: '"Nunito Sans", sans-serif',
     },
 });
 

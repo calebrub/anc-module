@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,7 +23,7 @@ import History from "./history/index.jsx";
 import Examination from "./examination/index.jsx";
 import ObstetricAssessment from "./obstetricAssessment/index.jsx";
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -93,7 +93,10 @@ function ResponsiveDrawer(props) {
 
     const drawer = (
         <div>
-            <Toolbar />
+            <Box display="flex" mx={2} justifyItems="center" gap={1} alignItems="center">
+                <img src={`${import.meta.env.BASE_URL}vite.svg`} alt="Custom SVG" height={100} width="30%" />
+                <Typography fontWeight={"bold"} variant="h5">Ihmis Demo</Typography>
+            </Box>
             <Divider />
             <List>
                 {tabs.map(( tab, index) => (
