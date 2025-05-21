@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,6 +23,7 @@ import History from "./history/index.jsx";
 import Examination from "./examination/index.jsx";
 import ObstetricAssessment from "./obstetricAssessment/index.jsx";
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -46,11 +47,8 @@ function ResponsiveDrawer(props) {
         }
     };
 
-    const [selectedTab, setSelectedTab] = useState(0);
-
-    const handleTabChange = (index) => {
-        setSelectedTab(index);
-    };
+    const navigate = useNavigate();
+    const location = useLocation();
 
     // Remove this const when copying and pasting into your project.
     const container = window !== undefined ? () => window().document.body : undefined;
@@ -59,25 +57,39 @@ function ResponsiveDrawer(props) {
         {
             name: "Present Pregnancy",
             component: <PresentPregnancy />,
-            icon: <PregnantWomanIcon />
+            icon: <PregnantWomanIcon />,
+            path: "/present-pregnancy"
         },
         {
             name: "History",
             component: <History />,
-            icon: <HistoryEduIcon />
+            icon: <HistoryEduIcon />,
+            path: "/history"
         },
         {
             name: "Examination",
             component: <Examination />,
-            icon: <MonitorHeartIcon />
+            icon: <MonitorHeartIcon />,
+            path: "/examination"
         },
-
         {
             name: "Previous Obstetric Assessment",
             component: <ObstetricAssessment/>,
-            icon: <HealthAndSafetyIcon />
+            icon: <HealthAndSafetyIcon />,
+            path: "/obstetric-assessment"
         }
     ];
+
+    // Redirect to first tab if on root path
+    useEffect(() => {
+        if (location.pathname === '/') {
+            navigate(tabs[0].path);
+        }
+    }, [location.pathname, navigate]);
+
+    const handleTabChange = (path) => {
+        navigate(path);
+    };
 
     const drawer = (
         <div>
@@ -87,8 +99,8 @@ function ResponsiveDrawer(props) {
                 {tabs.map(( tab, index) => (
                     <ListItem key={index} disablePadding>
                         <ListItemButton
-                            onClick={() => handleTabChange(index)}
-                            selected={selectedTab === index}
+                            onClick={() => handleTabChange(tab.path)}
+                            selected={location.pathname === tab.path}
                             sx={{
                                 '&.Mui-selected': {
                                     backgroundColor: 'rgba(0, 0, 0, 0.08)',
@@ -172,8 +184,15 @@ function ResponsiveDrawer(props) {
                 </Drawer>
             </Box>
 
-            {tabs[selectedTab].component}
-
+            <Routes>
+                {tabs.map((tab, index) => (
+                    <Route 
+                        key={index}
+                        path={tab.path} 
+                        element={tab.component} 
+                    />
+                ))}
+            </Routes>
         </Box>
     );
 }
