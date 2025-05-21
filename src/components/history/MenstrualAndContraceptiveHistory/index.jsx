@@ -9,6 +9,7 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
             lengthOfMenses: '',
             amount: '',
             familyPlanningMethod: '',
+            familyPlanningMethodUsed: '',
             when: '',
             whyDiscontinued: '',
             whyNeverUsed: '',
@@ -92,12 +93,12 @@ const MenstrualAndContraceptiveHistory = ({ onSubmit }) => {
                             <Box mb={2}>
                                 <Typography gutterBottom fontWeight={'bold'}>Family Planning Method Used</Typography>
                                 <TextField
-                                    name="familyPlanningMethod"
-                                    value={values.familyPlanningMethod}
+                                    name="familyPlanningMethodUsed"
+                                    value={values.familyPlanningMethodUsed}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={touched.familyPlanningMethod && Boolean(errors.familyPlanningMethod)}
-                                    helperText={touched.familyPlanningMethod && errors.familyPlanningMethod}
+                                    error={touched.familyPlanningMethodUsed && Boolean(errors.familyPlanningMethodUsed)}
+                                    helperText={touched.familyPlanningMethodUsed && errors.familyPlanningMethodUsed}
                                     fullWidth
                                 />
                             </Box>
