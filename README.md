@@ -41,14 +41,7 @@ npm run build
 npm run preview
 ```
 
-### Deployment
-
-The application is configured for deployment to GitHub Pages:
-
-```bash
-# Deploy to GitHub Pages
-npm run deploy
-```
+You can access the deployed application at: [https://calebrub.github.io/anc-module/](https://calebrub.github.io/anc-module/)
 
 ## Project Structure
 
